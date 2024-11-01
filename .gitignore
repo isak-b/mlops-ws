@@ -166,3 +166,4 @@ cython_debug/
 
 # models
 *.pkl
+*.onnx

@@ -1,3 +1,4 @@
 pandas
 scikit-learn
 pickle
+skl2onnx

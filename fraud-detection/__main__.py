@@ -1,5 +1,6 @@
 import pandas as pd
 import pickle
+from skl2onnx import to_onnx
 
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
@@ -7,9 +8,12 @@ from sklearn.metrics import accuracy_score
 
 pd.set_option("display.precision", 3)
 
+data_path = "data/fraud-detection.csv"
+model_path = "models/fraud-detection.onnx"
+
 
 def main():
-    df = pd.read_csv("data/fraud-detection.csv")
+    df = pd.read_csv(data_path)
     seed = 1234
 
     # Split
@@ -31,8 +35,10 @@ def main():
     print(f"\n{train_accuracy=}\n{test_accuracy=}")
 
     # Save
-    with open("models/model.pkl", "wb") as f:
-        pickle.dump(model, f)
+    with open(model_path, "wb") as f:
+        onx = to_onnx(model, df[features].iloc[:1])
+        pickle.dump(onx, f)
+        print(f"Model saved to {model_path=}")
 
 
 if __name__ == "__main__":
