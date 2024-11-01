@@ -1,4 +1,5 @@
 import pandas as pd
+import pickle
 
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
@@ -28,6 +29,10 @@ def main():
     train_accuracy = accuracy_score(train_pred["true"], train_pred["pred"])
     test_accuracy = accuracy_score(test_pred["true"], test_pred["pred"])
     print(f"\n{train_accuracy=}\n{test_accuracy=}")
+
+    # Save
+    with open("models/model.pkl", "wb") as f:
+        pickle.dump(model, f)
 
 
 if __name__ == "__main__":
