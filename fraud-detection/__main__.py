@@ -1,5 +1,4 @@
 import pandas as pd
-import pickle
 from skl2onnx import to_onnx
 
 from sklearn.model_selection import train_test_split
@@ -14,6 +13,8 @@ model_path = "models/fraud-detection.onnx"
 
 def main():
     df = pd.read_csv(data_path)
+    for col in df.columns:
+        df[col] = df[col].astype(float)
     seed = 1234
 
     # Split
@@ -35,9 +36,9 @@ def main():
     print(f"\n{train_accuracy=}\n{test_accuracy=}")
 
     # Save
+    onx = to_onnx(model, df[features].to_numpy()[1:])
     with open(model_path, "wb") as f:
-        onx = to_onnx(model, df[features].iloc[:1])
-        pickle.dump(onx, f)
+        f.write(onx.SerializeToString())
         print(f"Model saved to {model_path=}")
 
 
