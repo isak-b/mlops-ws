@@ -36,7 +36,7 @@ def main():
 
     # Save
     with open(model_path, "wb") as f:
-        onx = to_onnx(model, df[features].iloc[:1]).SerializeToString()
+        onx = to_onnx(model, df[features].iloc[:1])
         pickle.dump(onx, f)
         print(f"Model saved to {model_path=}")
 
