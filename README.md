@@ -1,4 +1,4 @@
-# MLOps Workshop - model training
+# MLOps Workshop - model training & upload
 
 ## Clone repo
 
@@ -13,9 +13,12 @@ cd mlops-ws
 pip install -r requirements.txt
 ```
 
-## Run code
+## Run code locally
+```bash
+LOCAL=true python fraud-detection
+```
+
+## Run code on remote
 ```bash
 python fraud-detection
 ```
-
-Note: The trained model is saved in models/
